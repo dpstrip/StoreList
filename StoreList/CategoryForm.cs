@@ -12,6 +12,9 @@ namespace StoreList
 {
     public partial class CategoryForm : Form
     {
+        public DataBase.DataStore CatDb;
+        public string databaseName = "Category";
+
         public CategoryForm()
         {
             InitializeComponent();
@@ -22,14 +25,14 @@ namespace StoreList
             System.Windows.Forms.Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-
+            this.Dispose();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void CategoryForm_Load(object sender, EventArgs e)
         {
-
+            CatDb = new DataBase.DataStore(databaseName);
         }
     }
 }

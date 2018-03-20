@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiteDB;
+
 
 namespace StoreList
 {
@@ -35,6 +37,11 @@ namespace StoreList
                 Console.WriteLine("You clicked either Cancel or X button in the top right corner");
             }
             popup.Dispose();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

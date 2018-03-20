@@ -54,12 +54,14 @@
     <Compile Include="CategoryForm.Designer.cs">
       <DependentUpon>CategoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\DataStore.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CategoryForm.resx">
