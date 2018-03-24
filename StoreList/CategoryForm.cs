@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StoreList.Models;
 
 namespace StoreList
 {
     public partial class CategoryForm : Form
     {
         public DataBase.DataStore CatDb;
-        public string databaseName = "Category";
+        public List<Category> cats;
+        
 
         public CategoryForm()
         {
@@ -32,7 +34,19 @@ namespace StoreList
 
         private void CategoryForm_Load(object sender, EventArgs e)
         {
-            CatDb = new DataBase.DataStore(databaseName);
+            CatDb = new DataBase.DataStore();
+            List<Category> cats = CatDb.readCategory();
+            listBox1.DataSource = cats;
+            listBox1.DisplayMember = "Category";
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Category cat = new Category();
+            cat.category = textBox1.Text;
+            CatDb.createCategory(cat);
+            CatDb.readCategory();
         }
     }
 }

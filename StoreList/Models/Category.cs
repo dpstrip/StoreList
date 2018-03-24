@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreList.Models
 {
-    class Category
+    public class Category
     {
         public LiteDB.ObjectId _id { get; set; }
         public string category { get; set; }
