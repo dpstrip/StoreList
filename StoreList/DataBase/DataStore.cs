@@ -31,7 +31,7 @@ namespace StoreList.DataBase
 
             foreach(Category cat in cats)
             {
-                Console.WriteLine("{0}, {1}", cat._id, cat.category);
+                Console.WriteLine("In readCat: {0}, {1}", cat._id, cat.category);
             }
 
             return cats;

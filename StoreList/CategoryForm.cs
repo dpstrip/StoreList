@@ -51,24 +51,36 @@ namespace StoreList
         private void button1_Click(object sender, EventArgs e)
         {
             //Add a new item in category
-            Category cat = new Category();
-            cat.category = textBox1.Text;
-            CatDb.createCategory(cat);
-            CatDb.readCategory();
+            Category _curCat = new Category();
+            _curCat.category = textBox1.Text;
+            currentCat = _curCat;
+            CatDb.createCategory(currentCat);
+            loadListBox();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentCat = (Category)listBox1.SelectedItem;
             textBox1.Text = currentCat.category;
+            Console.WriteLine("In ListBox Selected: {0}, {1}", currentCat._id, currentCat.category);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             //Update button
             currentCat.category = textBox1.Text;
+            Console.WriteLine("In Update: {0}, {1}", currentCat._id, currentCat.category);
             CatDb.updateCategory(currentCat);
             loadListBox();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //delete button
+            Console.WriteLine("In delete: {0}, {1}", currentCat._id, currentCat.category);
+            CatDb.deleteCategory(currentCat);
+            loadListBox();
+
         }
     }
 }
