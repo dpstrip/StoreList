@@ -15,7 +15,9 @@ namespace StoreList
     {
         public DataBase.DataStore CatDb;
         public List<Category> cats;
-        
+        private Category currentCat;
+
+
 
         public CategoryForm()
         {
@@ -35,7 +37,12 @@ namespace StoreList
         private void CategoryForm_Load(object sender, EventArgs e)
         {
             CatDb = new DataBase.DataStore();
-            List<Category> cats = CatDb.readCategory();
+            loadListBox();
+        }
+
+        private void loadListBox()
+        {
+            cats = CatDb.readCategory();
             listBox1.DataSource = cats;
             listBox1.DisplayMember = "Category";
             
@@ -43,10 +50,25 @@ namespace StoreList
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Add a new item in category
             Category cat = new Category();
             cat.category = textBox1.Text;
             CatDb.createCategory(cat);
             CatDb.readCategory();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentCat = (Category)listBox1.SelectedItem;
+            textBox1.Text = currentCat.category;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Update button
+            currentCat.category = textBox1.Text;
+            CatDb.updateCategory(currentCat);
+            loadListBox();
         }
     }
 }

@@ -36,6 +36,16 @@ namespace StoreList.DataBase
 
             return cats;
         }
+
+        public void updateCategory(Category cat)
+        {
+            catCollection.Update(cat);
+        }
+
+        public void deleteCategory(Category cat)
+        {
+            catCollection.Delete(cat._id);
+        }
         
     }
 }
