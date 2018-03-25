@@ -21,7 +21,7 @@ namespace StoreList.DataBase
             itemCollection = db.GetCollection<Item>("Item");
         }
 
-
+        #region category
         public void createCategory(Category cat)
         {          
             catCollection.Insert(cat);
@@ -51,7 +51,8 @@ namespace StoreList.DataBase
                 Console.WriteLine("In readCat: {0}, {1}", cat._id, cat.category);
             }
         }
-
+        #endregion
+        #region itemRegion
         public void insertItem(Item it)
         {
             itemCollection.Insert(it);
@@ -77,5 +78,12 @@ namespace StoreList.DataBase
             itemCollection.Delete(it._id);
         }
 
+        public void update(Item it)
+        {
+            itemCollection.Upsert(it);
+        }
+
+
+        #endregion
     }
 }
