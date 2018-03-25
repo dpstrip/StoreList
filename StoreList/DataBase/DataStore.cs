@@ -12,11 +12,13 @@ namespace StoreList.DataBase
     {
         public LiteDatabase db;
         public LiteCollection<Category> catCollection;
+        public LiteCollection<Item> itemCollection;
 
         public DataStore()
         {
             db = new LiteDatabase(@"C:\dstrash\dblite\StoreList");
             catCollection = db.GetCollection<Category>("Category");
+            itemCollection = db.GetCollection<Item>("Item");
         }
 
 
@@ -28,12 +30,7 @@ namespace StoreList.DataBase
         public List<Category> readCategory()
         {
             List<Category> cats = catCollection.FindAll().ToList<Category>();
-
-            foreach(Category cat in cats)
-            {
-                Console.WriteLine("In readCat: {0}, {1}", cat._id, cat.category);
-            }
-
+            consolePrintCategory(cats);
             return cats;
         }
 
@@ -46,6 +43,39 @@ namespace StoreList.DataBase
         {
             catCollection.Delete(cat._id);
         }
-        
+
+        private void consolePrintCategory(List<Category> cats)
+        {
+            foreach (Category cat in cats)
+            {
+                Console.WriteLine("In readCat: {0}, {1}", cat._id, cat.category);
+            }
+        }
+
+        public void insertItem(Item it)
+        {
+            itemCollection.Insert(it);
+        }
+
+        public List<Item> readItems()
+        {
+            List<Item> items = itemCollection.FindAll().ToList<Item>();
+            consolePrintItems(items);
+            return items;
+        }
+
+        private void consolePrintItems(List<Item> items)
+        {
+            foreach (Item it in items)
+            {
+                Console.WriteLine("In readItems: {0}, {1}, {2}, {3}, {4}", it._id, it.name, it.location, it.quantity, it.catID);
+            }
+        }
+
+        public void deleteItem(Item it)
+        {
+            itemCollection.Delete(it._id);
+        }
+
     }
 }

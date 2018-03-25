@@ -9,9 +9,9 @@ namespace StoreList.Models
     public class Item
     {
         public LiteDB.ObjectId _id { get; set; }
-        string name { get; set; } //Name of item
-        string location { get; set; } //location of item
-        Category cat { get; set; } //category
-        int quantity { get; set; } //Quantity of the item
+        public string name { get; set; } //Name of item
+        public string location { get; set; } //location of item
+        public LiteDB.ObjectId catID { get; set; } //category
+        public int quantity { get; set; } //Quantity of the item
     }
 }
