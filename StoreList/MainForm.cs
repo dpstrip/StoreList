@@ -17,8 +17,8 @@ namespace StoreList
     public partial class MainForm : Form
     {
         public DataStore db = new DataStore();
-        public List<Category> catList;
-        public List<Item> itemList;
+        public BindingList<Category> catList;
+        public BindingList<Item> itemList;
 
         public MainForm()
         {
@@ -48,8 +48,9 @@ namespace StoreList
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Create 3 items for the list
-            catList = db.readCategory();
-            itemList = db.readItems();
+            catList = new BindingList<Category>(db.readCategory());
+            itemList = new BindingList<Item>(db.readItems());
+            setDataGrid();
             //Category cate = catList.ElementAt<Category>(1);
             //Item it = new Item { name = "cookies", location = "Top Shelf", quantity = 2, catID = cate._id };
             //Item it2 = new Item { name = "milk", location = "Fridge", quantity = 5, catID = catList.ElementAt<Category>(0)._id };
@@ -58,7 +59,10 @@ namespace StoreList
             //db.insertItem(it2);
             //db.insertItem(it3);
 
+        }
 
+        private void setDataGrid()
+        { 
             //Binding the comboBox to the a the list of values of Category
             DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
             combo.DataSource = catList;
@@ -83,6 +87,20 @@ namespace StoreList
 
 
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //var result = MessageBox.Show("content click");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Item it = new Item();
+            itemList.Add(it);
+            //dataGridView1.Refresh();
+            //setDataGrid();
+            dataGridView1.Rows.Add();
         }
     }
 }
