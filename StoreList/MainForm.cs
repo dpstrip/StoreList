@@ -19,6 +19,7 @@ namespace StoreList
         public DataStore db = new DataStore();
         public BindingList<Category> catList;
         public BindingList<Item> itemList;
+        int currentRow;
 
         public MainForm()
         {
@@ -91,7 +92,11 @@ namespace StoreList
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //var result = MessageBox.Show("content click");
+            textBox1.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
+            textBox2.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[2].Value);
+            textBox3.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value);
+            currentRow = dataGridView1.CurrentRow.Index;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
