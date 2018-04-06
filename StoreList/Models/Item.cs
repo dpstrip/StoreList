@@ -14,5 +14,21 @@ namespace StoreList.Models
         public LiteDB.ObjectId catID { get; set; } //category
         public int quantity { get; set; } //Quantity of the item
         public string categoryName { get; set; }
+
+        public Item(string Name, string Loc, int Quantity)
+        {
+            name = Name;
+            location = Loc;
+            quantity = Quantity;
+        }
+
+        public Item()
+        {
+        }
+
+        public override string ToString()
+        {
+            return "Name = " + name + " location = " + location + " Quantity = " + quantity;
+        }
     }
 }
