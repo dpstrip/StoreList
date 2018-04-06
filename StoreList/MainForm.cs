@@ -52,42 +52,26 @@ namespace StoreList
             catList = new BindingList<Category>(db.readCategory());
             itemList = new BindingList<Item>(db.readItems());
             setDataGrid();
-            //Category cate = catList.ElementAt<Category>(1);
-            //Item it = new Item { name = "cookies", location = "Top Shelf", quantity = 2, catID = cate._id };
-            //Item it2 = new Item { name = "milk", location = "Fridge", quantity = 5, catID = catList.ElementAt<Category>(0)._id };
-            //Item it3 = new Item { name = "Chips", location = "Top of shelf", quantity = 25, catID = catList.ElementAt<Category>(0)._id };
-            //db.insertItem(it);
-            //db.insertItem(it2);
-            //db.insertItem(it3);
+            setCombo();
+        }
 
+        private void setCombo()
+        {
+            comboBox1.DataSource = catList;
+            comboBox1.DisplayMember = "category";
+            comboBox1.ValueMember = "_id";
         }
 
         private void setDataGrid()
         { 
-            //Binding the comboBox to the a the list of values of Category
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.DataSource = catList;
-            combo.DisplayMember = "category";
-            combo.ValueMember = "_id";
-            combo.HeaderText = "Category";
-            combo.DataPropertyName = "catID";
-
-
-            dataGridView1.Columns.Add(combo);
-
-
             dataGridView1.DataSource = itemList;
             dataGridView1.Columns["name"].HeaderText = "Name";
             dataGridView1.Columns["location"].HeaderText = "Location";
             dataGridView1.Columns["quantity"].HeaderText = "Quantity";
-           // Console.WriteLine(dataGridView1.Columns["cat"].DataPropertyName = "cat.category";
-
-            //dataGridView1.Columns.Insert(3, combo);//works but not in the cat column
+            dataGridView1.Columns["categoryName"].HeaderText = "Category";
 
             dataGridView1.Columns["_id"].Visible = false;
-
-
-
+            dataGridView1.Columns["catID"].Visible = false;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -95,17 +79,51 @@ namespace StoreList
             textBox1.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
             textBox2.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[2].Value);
             textBox3.Text = Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value);
+            comboBox1.SelectedValue = dataGridView1.CurrentRow.Cells[3].Value;    
             currentRow = dataGridView1.CurrentRow.Index;
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            //Add
             Item it = new Item();
+            FillItem(it);    
             itemList.Add(it);
-            //dataGridView1.Refresh();
-            //setDataGrid();
-            dataGridView1.Rows.Add();
+            dataGridView1.Refresh();
+            setDataGrid();
+            db.insertItem(it);
+        }
+
+        private void FillItem(Item it)
+        {
+            it.name = textBox1.Text;
+            it.location = textBox2.Text;
+            it.quantity = Convert.ToInt32(textBox3.Text);
+            Category lCat = (Category)comboBox1.SelectedItem;
+            it.categoryName = lCat.category;
+            it.catID = lCat._id;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //update
+            Item it = itemList[currentRow];
+            FillItem(it);
+            dataGridView1.Refresh();
+            setDataGrid();
+            db.update(it);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Delete item
+            Item it = itemList[currentRow];
+            itemList.Remove(it);
+            dataGridView1.Refresh();
+            setDataGrid();
+            db.deleteItem(it);
         }
     }
 }

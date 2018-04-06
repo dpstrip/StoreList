@@ -17,7 +17,7 @@ namespace StoreList.DataBase
 
         public DataStore()
         {
-            db = new LiteDatabase(@"C:\dstrash\dblite\StoreList");
+            db = new LiteDatabase(@"StoreList");
             catCollection = db.GetCollection<Category>("Category");
             itemCollection = db.GetCollection<Item>("Item");
         }

@@ -13,5 +13,6 @@ namespace StoreList.Models
         public string location { get; set; } //location of item
         public LiteDB.ObjectId catID { get; set; } //category
         public int quantity { get; set; } //Quantity of the item
+        public string categoryName { get; set; }
     }
 }
