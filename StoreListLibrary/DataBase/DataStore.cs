@@ -14,10 +14,11 @@ namespace StoreList.DataBase
         public LiteDatabase db;
         public LiteCollection<Category> catCollection;
         public LiteCollection<Item> itemCollection;
-
+        public string storePath = @"C:\Users\dpstr\Source\Repos\StoreList\StoreListLibrary\bin\Debug\StoreList";
+        
         public DataStore()
         {
-            db = new LiteDatabase(@"StoreList");
+            db = new LiteDatabase(storePath);
             catCollection = db.GetCollection<Category>("Category");
             itemCollection = db.GetCollection<Item>("Item");
         }
